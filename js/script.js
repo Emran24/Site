@@ -35,10 +35,12 @@ if (modalForm) {
         const email = this.querySelector('input[placeholder="Email"]').value;
         const company = this.querySelector('input[placeholder="Название компании"]').value;
 
-        const text = `Новая заявка с сайта!\n\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email || '—'}\nКомпания: ${company || '—'}`;
+        const subject = encodeURIComponent('Новая заявка с сайта Мясной Агродом');
+        const body = encodeURIComponent(
+            `Новая заявка с сайта!\n\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email || '—'}\nКомпания: ${company || '—'}`
+        );
 
-        const encoded = encodeURIComponent(text);
-        window.open(`https://max.ru/u/ВАШ_ЮЗЕРНЕЙМ?text=${encoded}`, '_blank');
+        window.location.href = `mailto:s.kosyrev@agrohouse.pro?subject=${subject}&body=${body}`;
 
         const modal = bootstrap.Modal.getInstance(document.getElementById('contactModal'));
         modal.hide();
