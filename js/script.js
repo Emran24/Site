@@ -29,7 +29,17 @@ const modalForm = document.getElementById('modalForm');
 if (modalForm) {
     modalForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        alert('Спасибо за заявку! Коммерческое предложение будет отправлено на вашу почту.');
+
+        const name = this.querySelector('input[placeholder="Ваше имя"]').value;
+        const phone = this.querySelector('input[placeholder="Телефон"]').value;
+        const email = this.querySelector('input[placeholder="Email"]').value;
+        const company = this.querySelector('input[placeholder="Название компании"]').value;
+
+        const text = `Новая заявка с сайта!\n\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email || '—'}\nКомпания: ${company || '—'}`;
+
+        const encoded = encodeURIComponent(text);
+        window.open(`https://max.ru/u/ВАШ_ЮЗЕРНЕЙМ?text=${encoded}`, '_blank');
+
         const modal = bootstrap.Modal.getInstance(document.getElementById('contactModal'));
         modal.hide();
         this.reset();
@@ -88,3 +98,14 @@ items.forEach(item => {
         });
     });
 });
+
+const priceBtn = document.querySelector('[data-bs-target="#contactModal"]');
+if (priceBtn) {
+    priceBtn.addEventListener('click', function (e) {
+        if (window.innerWidth < 768) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            window.location.href = 'tel:+79873500463';
+        }
+    });
+}
