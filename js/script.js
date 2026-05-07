@@ -24,30 +24,17 @@ window.addEventListener('scroll', function () {
     }
 });
 
-// Form submissions
-document.getElementById('contactForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    // TODO: Добавить отправку формы на сервер
-    // Здесь должна быть логика отправки данных
-
-    alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
-    this.reset();
-});
-
-document.getElementById('modalForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    // TODO: Добавить отправку формы на сервер
-
-    alert('Спасибо за заявку! Коммерческое предложение будет отправлено на вашу почту.');
-
-    // Закрыть модальное окно
-    const modal = bootstrap.Modal.getInstance(document.getElementById('contactModal'));
-    modal.hide();
-
-    this.reset();
-});
+// Modal form submission
+const modalForm = document.getElementById('modalForm');
+if (modalForm) {
+    modalForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('Спасибо за заявку! Коммерческое предложение будет отправлено на вашу почту.');
+        const modal = bootstrap.Modal.getInstance(document.getElementById('contactModal'));
+        modal.hide();
+        this.reset();
+    });
+}
 
 // Phone number formatting
 document.querySelectorAll('input[type="tel"]').forEach(input => {
@@ -93,7 +80,6 @@ const images = document.querySelectorAll('.grid-img');
 items.forEach(item => {
     item.addEventListener('mouseenter', () => {
         const id = item.getAttribute('data-img');
-
         images.forEach(img => {
             img.classList.remove('active');
             if (img.getAttribute('data-img') === id) {
